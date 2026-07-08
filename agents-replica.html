@@ -3326,7 +3326,7 @@
     .automation-form-action.toggle-start::before {
       content: "";
       position: absolute;
-      top: 2px;
+      top: 50%;
       left: 2px;
       width: 18px;
       height: 18px;
@@ -3338,11 +3338,11 @@
     }
 
     .automation-form-action.toggle-pause::before {
-      transform: translateX(18px);
+      transform: translate(18px, -50%);
     }
 
     .automation-form-action.toggle-start::before {
-      transform: translateX(0);
+      transform: translate(0, -50%);
     }
 
     .schedule-task-section {
