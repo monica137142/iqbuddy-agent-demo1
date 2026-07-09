@@ -5268,9 +5268,17 @@
 
     .task-modal-actions {
       display: flex;
+      align-items: center;
       justify-content: flex-end;
       gap: 10px;
       padding: 14px 22px 20px;
+    }
+
+    .task-modal-actions-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
     }
 
     * {
@@ -7019,8 +7027,11 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         </div>
       </div>
       <div class="task-modal-actions">
-        <button class="confirm-btn" type="button" id="copyrightTaskCancelBtn">取消</button>
-        <button class="confirm-btn danger" type="button" id="copyrightTaskCreateBtn">创建任务</button>
+        <button class="confirm-btn danger" type="button" id="copyrightTaskDeleteBtn" hidden>删除</button>
+        <div class="task-modal-actions-main">
+          <button class="confirm-btn" type="button" id="copyrightTaskCancelBtn">取消</button>
+          <button class="confirm-btn danger" type="button" id="copyrightTaskCreateBtn">创建任务</button>
+        </div>
       </div>
     </div>
   </div>
@@ -7241,6 +7252,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     const copyrightTaskCloseBtn = document.getElementById("copyrightTaskCloseBtn");
     const copyrightTaskCancelBtn = document.getElementById("copyrightTaskCancelBtn");
     const copyrightTaskCreateBtn = document.getElementById("copyrightTaskCreateBtn");
+    const copyrightTaskDeleteBtn = document.getElementById("copyrightTaskDeleteBtn");
     const copyrightTaskMaterial = document.getElementById("copyrightTaskMaterial");
     const copyrightTaskFileName = document.getElementById("copyrightTaskFileName");
     const copyrightTaskFileRemoveBtn = document.getElementById("copyrightTaskFileRemoveBtn");
@@ -8963,6 +8975,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
           : "Tiktok上传会根据素材信息生成上传处理任务，并跟进发布校验。";
       }
       if (copyrightTaskCreateBtn) copyrightTaskCreateBtn.textContent = isEdit ? "保存修改" : "创建任务";
+      if (copyrightTaskDeleteBtn) copyrightTaskDeleteBtn.hidden = !isEdit;
       if (copyrightTaskName) copyrightTaskName.value = options.taskName || "Tiktok上传任务";
       if (copyrightTaskFlow?.options?.[0]) copyrightTaskFlow.options[0].textContent = options.flow || "Tiktok上传";
       if (copyrightTaskBrowser) {
@@ -8974,6 +8987,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       if (copyrightTaskMaterial) copyrightTaskMaterial.value = "";
       syncTaskUploadActions(copyrightTaskFileName, copyrightTaskFileRemoveBtn, copyrightTaskContinueUploadBtn);
       copyrightTaskDialog.dataset.mode = isEdit ? "edit" : "create";
+      copyrightTaskDialog.dataset.taskName = options.taskName || "Tiktok上传任务";
       populateNumberSelects();
       syncTaskCronCycleDetails();
       copyrightTaskDialog.hidden = false;
@@ -8983,6 +8997,8 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     function closeCopyrightTaskDialog() {
       copyrightTaskDialog.hidden = true;
       delete copyrightTaskDialog.dataset.mode;
+      delete copyrightTaskDialog.dataset.taskName;
+      if (copyrightTaskDeleteBtn) copyrightTaskDeleteBtn.hidden = true;
     }
 
     function openScheduleTaskEditor(card) {
@@ -9732,6 +9748,15 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const isEdit = copyrightTaskDialog.dataset.mode === "edit";
       closeCopyrightTaskDialog();
       showToast(isEdit ? "已保存定时任务修改" : "已创建 Tiktok 上传任务");
+    });
+    copyrightTaskDeleteBtn?.addEventListener("click", () => {
+      if (copyrightTaskDialog.dataset.mode !== "edit") return;
+      const taskName = copyrightTaskDialog.dataset.taskName || copyrightTaskName?.value || "定时任务";
+      const row = Array.from(document.querySelectorAll("[data-automation-row]")).find(item => automationTaskNameFromRow(item) === taskName);
+      row?.remove();
+      closeCopyrightTaskDialog();
+      renderAutomationScopeStats();
+      showToast(`已删除「${taskName}」`);
     });
     copyrightTaskDialog.addEventListener("click", event => {
       if (event.target === copyrightTaskDialog) closeCopyrightTaskDialog();
