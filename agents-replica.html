@@ -8057,6 +8057,20 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       routeShell.scrollTo({ top: Math.max(0, nextTop), behavior: "smooth" });
     }
 
+    function scrollAgentCardToViewCenter(agentName, behavior = "auto") {
+      if (!routeShell || !agentName) return;
+      const card = Array.from(document.querySelectorAll(".acard")).find(item => item.dataset.agentName === agentName);
+      if (!card) return;
+      const shellRect = routeShell.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const desiredTop = shellRect.top + Math.max(0, (shellRect.height - cardRect.height) / 2);
+      const maxTop = Math.max(0, routeShell.scrollHeight - routeShell.clientHeight);
+      const nextTop = Math.min(maxTop, Math.max(0, routeShell.scrollTop + cardRect.top - desiredTop));
+      routeShell.scrollTo({ top: nextTop, behavior });
+      routeScrollPositions.set("agents", nextTop);
+      updateGlobalScrollThumb(routeShell);
+    }
+
     function saveRouteScroll(page = state.page) {
       if (!routeShell || !page) return;
       routeScrollPositions.set(page, routeShell.scrollTop);
@@ -8332,6 +8346,9 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       renderAgentDrawer(agent);
       agentDetailLayer.hidden = false;
       syncAgentCardSelection();
+      if (requiresPermission) {
+        requestAnimationFrame(() => scrollAgentCardToViewCenter(agent.name));
+      }
     }
 
     function toggleAgentDrawer(agent, requiresPermission = false) {
@@ -9269,6 +9286,9 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       trainingEmpty.hidden = true;
       trainingSection.hidden = true;
       renderSessions();
+      if (state.drawerRequiresPermission && agentDetailLayer && !agentDetailLayer.hidden) {
+        requestAnimationFrame(() => scrollAgentCardToViewCenter(state.drawerAgent));
+      }
     }
 
     document.querySelectorAll("[data-filter]").forEach(button => {
