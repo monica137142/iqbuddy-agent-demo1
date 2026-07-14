@@ -851,7 +851,8 @@
       min-height: 0;
       display: flex;
       flex-direction: column;
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
       padding: 0 28px 28px;
       background: #f5f6f8;
     }
@@ -1495,12 +1496,64 @@
       inset: auto;
       z-index: 35;
       flex: 0 0 420px;
+      flex-shrink: 0;
       width: 420px;
-      min-width: 380px;
+      min-width: 280px;
+      max-width: none;
       height: auto;
       min-height: 0;
       overflow: hidden;
       background: transparent;
+    }
+
+    .agent-split-resizer {
+      display: none;
+    }
+
+    .agent-detail-layer.is-inline-permission .agent-split-resizer {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 42;
+      width: 12px;
+      display: block;
+      border: 0;
+      background: transparent;
+      cursor: col-resize;
+      transform: translateX(-6px);
+    }
+
+    .agent-detail-layer.is-inline-permission .agent-split-resizer::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: #e0e4e8;
+      transform: translateX(-50%);
+      transition: background-color .13s ease, box-shadow .13s ease;
+    }
+
+    .agent-detail-layer.is-inline-permission .agent-split-resizer:hover::after,
+    body.agent-split-resizing .agent-detail-layer.is-inline-permission .agent-split-resizer::after {
+      background: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(34, 181, 115, .12);
+    }
+
+    body.agent-split-resizing {
+      cursor: col-resize;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    body.agent-split-resizing .portal-center-route-shell {
+      overflow-x: hidden;
+    }
+
+    body.agent-split-resizing .agent-split-resizer {
+      touch-action: none;
     }
 
     .agent-detail-layer.is-modal-detail {
@@ -7099,6 +7152,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
           </section>
         </div>
         <div class="agent-detail-layer" id="agentDetailLayer" hidden>
+          <button class="agent-split-resizer" type="button" id="agentSplitResizer" aria-label="拖动调整分栏宽度"></button>
           <aside class="agent-detail-drawer" id="agentDetailDrawer">
             <header class="agent-drawer-head">
               <h2>实习生详情</h2>
@@ -7120,7 +7174,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
                     <h3 id="agentDrawerTitle"></h3>
                     <div class="agent-drawer-version" id="agentDrawerVersion"></div>
                   </div>
-                  <button class="cbtn primary" type="button" id="agentDrawerStartBtn">进入对话</button>
+                  <button class="cbtn primary" type="button" id="agentDrawerStartBtn">新建对话</button>
                 </div>
                 <p class="agent-drawer-intro" id="agentDrawerDesc"></p>
                 <div class="agent-drawer-tags">
@@ -7515,7 +7569,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     const expandedSessionHistoryAgents = new Set();
     const collapsedSessionHistoryAgents = new Set();
     const agentViewStates = {
-      default: { scope: "all", category: "all", query: "", drawerAgent: "", drawerRequiresPermission: false },
+      default: { scope: "all", category: "all", query: "", drawerAgent: "", drawerRequiresPermission: false, splitWidth: 420 },
       drawer: { scope: "all", category: "all", query: "", drawerAgent: "", drawerRequiresPermission: false },
       modal: { scope: "all", category: "all", query: "", drawerAgent: "", drawerRequiresPermission: false }
     };
@@ -7533,6 +7587,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       return state.agentView === "default";
     }
     const routeScrollPositions = new Map();
+    const mainContentArea = document.querySelector(".main-content-area");
     const searchInput = document.getElementById("searchInput");
     const servingGrid = document.getElementById("servingGrid");
     const trainingGrid = document.getElementById("trainingGrid");
@@ -7544,6 +7599,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     const trainingSection = document.getElementById("trainingSection");
     const agentsBody = document.querySelector("#pageAgents .body");
     const agentDetailLayer = document.getElementById("agentDetailLayer");
+    const agentSplitResizer = document.getElementById("agentSplitResizer");
     const agentDetailDrawer = document.getElementById("agentDetailDrawer");
     const agentDrawerCloseBtn = document.getElementById("agentDrawerCloseBtn");
     const agentDrawerProfile = document.querySelector(".agent-drawer-profile");
@@ -8552,6 +8608,25 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       }, 280);
     }
 
+    function inlineSplitMaxWidth() {
+      const containerWidth = mainContentArea?.clientWidth || 840;
+      return Math.max(1, Math.floor(containerWidth / 2));
+    }
+
+    function clampInlineSplitWidth(width) {
+      const maxWidth = inlineSplitMaxWidth();
+      const minWidth = Math.min(360, maxWidth);
+      return Math.min(maxWidth, Math.max(minWidth, Math.round(width || 420)));
+    }
+
+    function applyInlineSplitWidth(width) {
+      if (!agentDetailLayer) return;
+      const nextWidth = clampInlineSplitWidth(width);
+      agentViewStates.default.splitWidth = nextWidth;
+      agentDetailLayer.style.flexBasis = `${nextWidth}px`;
+      agentDetailLayer.style.width = `${nextWidth}px`;
+    }
+
     function syncAgentScopeSubtitle() {
       if (!agentScopeSubtitle) return;
       agentScopeSubtitle.textContent = activeAgentViewState().scope === "mine"
@@ -8985,7 +9060,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         ? actionButtonContent(isPendingPermission ? "申请中" : "开通权限")
         : isTaskAgent
           ? actionButtonContent("新建任务", "task")
-          : actionButtonContent("进入对话", "chat");
+          : actionButtonContent("新建对话", "chat");
       agentDrawerStartBtn.className = `cbtn ${viewState.drawerRequiresPermission ? `permission${isPendingPermission ? " pending" : ""}` : "primary"}`;
       agentDrawerSkills.innerHTML = "";
       agentCardSpecialtyTags(agent).forEach((skill, index) => {
@@ -9029,6 +9104,12 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       agentDetailLayer.classList.toggle("is-permission-detail", requiresPermission);
       agentDetailLayer.classList.toggle("is-drawer-detail", isAgentDrawerView());
       agentDetailLayer.classList.toggle("is-modal-detail", isAgentModalView());
+      if (requiresPermission && isAgentInlinePermissionView()) {
+        applyInlineSplitWidth(viewState.splitWidth || 420);
+      } else {
+        agentDetailLayer.style.flexBasis = "";
+        agentDetailLayer.style.width = "";
+      }
       renderAgentDrawer(agent);
       agentDetailLayer.hidden = false;
       syncAgentCardSelection();
@@ -9059,6 +9140,10 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       agentDetailLayer?.classList.remove("is-permission-detail");
       agentDetailLayer?.classList.remove("is-drawer-detail");
       agentDetailLayer?.classList.remove("is-modal-detail");
+      if (agentDetailLayer) {
+        agentDetailLayer.style.flexBasis = "";
+        agentDetailLayer.style.width = "";
+      }
       if (agentDetailLayer) agentDetailLayer.hidden = true;
       syncAgentCardSelection();
     }
@@ -9861,7 +9946,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const isTaskCard = isCopyrightTaskAgent(agent);
       const isPendingPermission = hasPendingPermissionRequest(agent);
       const actionClass = agent.group === "training" ? "train" : isPermissionCard ? `permission${isPendingPermission ? " pending" : ""}` : "primary";
-      const actionText = agent.group === "training" ? "训练" : isTaskCard ? "新建任务" : isPermissionCard ? (isPendingPermission ? "申请中" : "开通权限") : "进入对话";
+      const actionText = agent.group === "training" ? "训练" : isTaskCard ? "新建任务" : isPermissionCard ? (isPendingPermission ? "申请中" : "开通权限") : "新建对话";
       const actionIcon = isTaskCard ? "task" : !isPermissionCard && agent.group !== "training" ? "chat" : "";
       const specialtyTagHtml = agentCardSpecialtyTags(agent)
         .map((tag, index) => `<span class="st-tag st-specialty-${index}" title="${escapeHtml(tag)}">${escapeHtml(tag)}</span>`)
@@ -9952,7 +10037,6 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       sessionList.innerHTML = "";
       agents.filter(isConversationAgent).forEach(agent => {
         const group = document.createElement("div");
-        const activeHistory = activeHistoryFor(agent);
         const allHistories = visibleSessionHistories(agent);
         const previewCount = sessionHistoryPreviewCount(agent);
         const isLargeHistoryAgent = agent.name === "大盘数据分析助手";
@@ -10239,6 +10323,30 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     searchInput.addEventListener("input", event => {
       activeAgentViewState().query = event.target.value;
       render();
+    });
+    agentSplitResizer?.addEventListener("pointerdown", event => {
+      if (!agentDetailLayer?.classList.contains("is-inline-permission")) return;
+      event.preventDefault();
+      document.body.classList.add("agent-split-resizing");
+      agentSplitResizer.setPointerCapture?.(event.pointerId);
+      const handlePointerMove = moveEvent => {
+        const containerRect = mainContentArea?.getBoundingClientRect();
+        if (!containerRect) return;
+        applyInlineSplitWidth(containerRect.right - moveEvent.clientX);
+      };
+      const stopResize = () => {
+        document.body.classList.remove("agent-split-resizing");
+        window.removeEventListener("pointermove", handlePointerMove);
+        window.removeEventListener("pointerup", stopResize);
+        window.removeEventListener("pointercancel", stopResize);
+      };
+      window.addEventListener("pointermove", handlePointerMove);
+      window.addEventListener("pointerup", stopResize, { once: true });
+      window.addEventListener("pointercancel", stopResize, { once: true });
+    });
+    window.addEventListener("resize", () => {
+      if (!agentDetailLayer?.classList.contains("is-inline-permission") || agentDetailLayer.hidden) return;
+      applyInlineSplitWidth(agentViewStates.default.splitWidth || 420);
     });
     agentDrawerCloseBtn.addEventListener("click", closeAgentDrawer);
     agentDetailLayer.addEventListener("click", closeAgentDrawer);
