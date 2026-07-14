@@ -7787,6 +7787,16 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       globalScrollThumb.classList.add("show");
     }
 
+    function hideGlobalScrollThumb(scrollTarget) {
+      const target = scrollTarget instanceof Element ? scrollTarget : document.querySelector(".is-scrolling");
+      if (target) {
+        window.clearTimeout(scrollingTimers.get(target));
+        target.classList.remove("is-scrolling");
+      }
+      globalScrollThumb.classList.remove("show");
+      globalScrollThumb.style.transform = "translate3d(-9999px, -9999px, 0)";
+    }
+
     function markScrolling(target) {
       const scrollTarget = target === document || target === window
         ? document.scrollingElement || document.documentElement
@@ -8940,7 +8950,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const viewState = activeAgentViewState();
       document.querySelectorAll(".acard").forEach(card => {
         const isSelected = card.dataset.agentName === viewState.drawerAgent;
-        const isInlinePanelSelected = isSelected && viewState.drawerRequiresPermission && isAgentInlinePermissionView() && agentDetailLayer && !agentDetailLayer.hidden;
+        const isInlinePanelSelected = isSelected && isAgentInlinePermissionView() && agentDetailLayer && !agentDetailLayer.hidden;
         card.classList.toggle("selected", isSelected);
         card.classList.toggle("inline-panel-selected", isInlinePanelSelected);
       });
@@ -9032,7 +9042,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
 
     function renderAgentDrawer(agent) {
       const viewState = activeAgentViewState();
-      const isInlinePermission = viewState.drawerRequiresPermission && isAgentInlinePermissionView();
+      const isInlineDetail = isAgentInlinePermissionView();
       agentDrawerAvatar.classList.toggle("task-agent-avatar", isLightBlueTaskAvatarAgent(agent));
       agentDrawerAvatar.innerHTML = agent.logo ? `<img src="${agent.logo}" alt="${agent.name}">` : firstLetter(agent.name);
       agentDrawerTitle.textContent = agent.name;
@@ -9042,7 +9052,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       agentDrawerDesc.textContent = clean(agent.desc);
       const isTaskAgent = isCopyrightTaskAgent(agent);
       const isPendingPermission = hasPendingPermissionRequest(agent);
-      const closeLabel = isInlinePermission ? "收起侧边栏" : "关闭详情";
+      const closeLabel = isInlineDetail ? "收起侧边栏" : "关闭详情";
       agentDrawerCloseBtn.title = closeLabel;
       agentDrawerCloseBtn.setAttribute("aria-label", closeLabel);
       agentDrawerProfile.appendChild(agentDrawerStartBtn);
@@ -9100,11 +9110,11 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const viewState = activeAgentViewState();
       viewState.drawerAgent = agent.name;
       viewState.drawerRequiresPermission = requiresPermission;
-      agentDetailLayer.classList.toggle("is-inline-permission", requiresPermission && isAgentInlinePermissionView());
+      agentDetailLayer.classList.toggle("is-inline-permission", isAgentInlinePermissionView());
       agentDetailLayer.classList.toggle("is-permission-detail", requiresPermission);
       agentDetailLayer.classList.toggle("is-drawer-detail", isAgentDrawerView());
       agentDetailLayer.classList.toggle("is-modal-detail", isAgentModalView());
-      if (requiresPermission && isAgentInlinePermissionView()) {
+      if (isAgentInlinePermissionView()) {
         applyInlineSplitWidth(viewState.splitWidth || 420);
       } else {
         agentDetailLayer.style.flexBasis = "";
@@ -9113,7 +9123,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       renderAgentDrawer(agent);
       agentDetailLayer.hidden = false;
       syncAgentCardSelection();
-      if (requiresPermission && isAgentInlinePermissionView()) {
+      if (isAgentInlinePermissionView()) {
         requestAnimationFrame(() => scrollAgentCardToViewCenter(agent.name));
       }
     }
@@ -9145,6 +9155,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         agentDetailLayer.style.width = "";
       }
       if (agentDetailLayer) agentDetailLayer.hidden = true;
+      hideGlobalScrollThumb(routeShell);
       syncAgentCardSelection();
     }
 
@@ -9954,7 +9965,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const card = document.createElement("article");
       const viewState = activeAgentViewState();
       const isSelected = viewState.drawerAgent === agent.name;
-      const isInlinePanelSelected = isSelected && viewState.drawerRequiresPermission && isAgentInlinePermissionView() && agentDetailLayer && !agentDetailLayer.hidden;
+      const isInlinePanelSelected = isSelected && isAgentInlinePermissionView() && agentDetailLayer && !agentDetailLayer.hidden;
       card.className = `acard ${agent.group === "training" ? "training" : ""} ${isSelected ? "selected" : ""} ${isInlinePanelSelected ? "inline-panel-selected" : ""}`;
       card.tabIndex = 0;
       card.dataset.agentName = agent.name;
@@ -10004,23 +10015,19 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     }
 
     function activateAgentCard(agent, isPermissionCard = isPermissionAgent(agent), isTaskCard = isCopyrightTaskAgent(agent)) {
-      if (isPermissionCard) {
-        toggleAgentDrawer(agent, true);
+      if (isAgentDrawerView()) {
+        if (isPermissionCard) {
+          toggleAgentDrawer(agent, true);
+          return;
+        }
+        if (isTaskCard) {
+          openNewAgentTask(agent);
+          return;
+        }
+        openNewAgentConversation(agent);
         return;
       }
-      if (agent.group === "training") {
-        openAgentDrawer(agent, isPermissionCard);
-        return;
-      }
-      if (isTaskCard) {
-        openNewAgentTask(agent);
-        return;
-      }
-      if (isAgentDrawerView() || isAgentModalView()) {
-        toggleAgentDrawer(agent, false);
-        return;
-      }
-      openNewAgentConversation(agent);
+      toggleAgentDrawer(agent, isPermissionCard);
     }
 
     function renderGroup(group, grid, countNode, emptyNode, sectionNode) {
@@ -10168,7 +10175,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       trainingSection.hidden = true;
       renderSessions();
       const viewState = activeAgentViewState();
-      if (viewState.drawerRequiresPermission && isAgentInlinePermissionView() && agentDetailLayer && !agentDetailLayer.hidden) {
+      if (isAgentInlinePermissionView() && agentDetailLayer && !agentDetailLayer.hidden) {
         requestAnimationFrame(() => scrollAgentCardToViewCenter(viewState.drawerAgent));
       }
     }
