@@ -8471,6 +8471,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     const renamedSessionTitles = new Map();
     const pausedTaskDetailIds = new Set();
     const createdSessionHistories = [];
+    let currentPublicDetailKey = null;
     const seededInlineTaskHistory = {
       id: "tiktok-upload2-task-0",
       agentName: "Tiktok上传2",
@@ -8665,6 +8666,10 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const displayName = publicDisplayName(agent);
       const logo = publicAgentLogo(agent);
       const key = publicAgentKey(agent);
+      if (!publicDetailLayer.hidden && currentPublicDetailKey === key) {
+        closePublicAgentDetail();
+        return;
+      }
       publicDetailAvatar.innerHTML = logo
         ? `<img src="${escapeHtml(logo)}" alt="${escapeHtml(displayName)}">`
         : `<span>${escapeHtml(firstLetter(displayName))}</span>`;
@@ -8682,6 +8687,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         .map(prompt => `<div class="public-detail-prompt">${escapeHtml(prompt)}</div>`)
         .join("");
       publicDetailLayer.hidden = false;
+      currentPublicDetailKey = key;
       publicLogoutPage?.classList.add("public-split-open");
       document.querySelectorAll(".public-card[data-public-agent-key]").forEach(card => {
         const selected = card.dataset.publicAgentKey === key;
@@ -8692,6 +8698,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
 
     function closePublicAgentDetail() {
       if (publicDetailLayer) publicDetailLayer.hidden = true;
+      currentPublicDetailKey = null;
       publicLogoutPage?.classList.remove("public-split-open");
       document.querySelectorAll(".public-card.public-card--selected").forEach(card => {
         card.classList.remove("public-card--selected");
@@ -8725,6 +8732,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     }
 
     function hidePublicLogoutPage() {
+      closePublicAgentDetail();
       document.body.classList.remove("logged-out");
       if (publicLogoutPage) publicLogoutPage.hidden = true;
       if (appContainer) appContainer.hidden = false;
