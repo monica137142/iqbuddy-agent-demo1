@@ -5744,6 +5744,626 @@
       opacity: 0;
     }
 
+    body.logged-out {
+      min-width: 960px;
+      overflow-y: auto;
+      background: #f7f8fa;
+    }
+
+    body.logged-out .app-container {
+      display: none;
+    }
+
+    body.logged-out .global-scroll-thumb,
+    body.logged-out .toast {
+      display: none;
+    }
+
+    .public-homepage {
+      min-height: 100vh;
+      color: #1f2937;
+      background: #f7f8fa;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      transition: padding-right .24s ease;
+    }
+
+    .public-homepage[hidden] {
+      display: none;
+    }
+
+    .public-homepage.public-split-open {
+      padding-right: 420px;
+    }
+
+    .public-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: 57px;
+      border-bottom: 1px solid #e9edf1;
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(12px);
+    }
+
+    .public-navbar__inner {
+      width: 1100px;
+      height: 56px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .public-navbar__brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #222;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .public-logo-img {
+      width: 28px;
+      height: 28px;
+      display: block;
+      border-radius: 50%;
+    }
+
+    .public-navbar__right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .public-lang-btn,
+    .public-login-btn {
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .public-lang-btn {
+      padding: 4px 8px;
+      background: transparent;
+      color: rgba(0, 0, 0, .88);
+    }
+
+    .public-login-btn {
+      min-width: 82px;
+      padding: 4px 15px;
+      border-radius: 9px;
+      background: #22b573;
+      color: #fff;
+      box-shadow: 0 3px 9px rgba(34, 181, 115, .18);
+    }
+
+    .public-login-btn:hover {
+      background: #1fa86a;
+    }
+
+    .public-icon {
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      flex-shrink: 0;
+      color: currentColor;
+    }
+
+    .public-hero {
+      background: linear-gradient(100deg, #f2fbf6 0%, #f8fbf8 45%, #e8f3ff 100%);
+      border-bottom: 1px solid #eef2f5;
+    }
+
+    .public-hero__inner {
+      width: 1100px;
+      height: 124px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+    }
+
+    .public-hero h1 {
+      margin: 0;
+      color: #222;
+      font-size: 32px;
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .public-hero p {
+      margin: 4px 0 0;
+      color: #666;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .public-hero-panel {
+      width: 515px;
+      min-height: 69px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, .75);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .78);
+      box-shadow: 0 18px 38px rgba(35, 77, 122, .09);
+    }
+
+    .public-search {
+      height: 40px;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 1px solid #d7f2e6;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .9);
+      color: #a8adb4;
+      font-size: 14px;
+    }
+
+    .public-search input {
+      width: 100%;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .public-search input::placeholder {
+      color: #b9bec4;
+    }
+
+    .public-stats {
+      display: flex;
+      align-items: stretch;
+      height: 56px;
+    }
+
+    .public-stats__item {
+      width: 58px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      position: relative;
+    }
+
+    .public-stats__item + .public-stats__item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 1px;
+      background: #edf1f4;
+    }
+
+    .public-stats__num {
+      color: #22b573;
+      font-size: 19px;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    .public-stats__label {
+      color: #666;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .public-sections {
+      width: 1100px;
+      margin: 0 auto;
+      padding: 20px 32px 52px;
+    }
+
+    .public-section {
+      margin-bottom: 26px;
+    }
+
+    .public-section__header {
+      min-height: 27px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .public-section__icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .public-section__title {
+      margin: 0;
+      color: #222;
+      font-size: 18px;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .public-section__count {
+      min-width: 26px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #e6fff4;
+      color: #22b573;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .public-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .public-card {
+      height: 140px;
+      display: grid;
+      grid-template-columns: 46px 1fr 18px;
+      gap: 14px;
+      align-items: center;
+      padding: 18px;
+      border: 1px solid #e2e5e8;
+      border-radius: 12px;
+      background: #fff;
+      color: #1f2937;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+
+    .public-card:hover {
+      border-color: #cdeadd;
+      box-shadow: 0 10px 26px rgba(20, 30, 40, .06);
+      transform: translateY(-1px);
+    }
+
+    .public-card.public-card--selected {
+      border-color: #22b573;
+      background: linear-gradient(0deg, rgba(34, 181, 115, .045), rgba(34, 181, 115, .045)), #fff;
+      box-shadow: 0 12px 28px rgba(34, 181, 115, .12);
+    }
+
+    .public-card:focus-visible {
+      outline: 3px solid rgba(34, 181, 115, .22);
+      outline-offset: 2px;
+    }
+
+    .public-card__avatar {
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #c8f7df;
+      color: #22b573;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .public-card__avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .public-card__name {
+      color: #222;
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .public-card__version {
+      margin-top: 1px;
+      color: #666;
+      font-size: 12px;
+      line-height: 1.45;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .public-card__desc {
+      height: 34px;
+      margin-top: 3px;
+      color: #666;
+      font-size: 12px;
+      line-height: 17px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .public-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .public-tag {
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 7px;
+      border-radius: 6px;
+      font-size: 11px;
+      line-height: 18px;
+      flex-shrink: 0;
+    }
+
+    .public-tag--ready {
+      background: #f6ffed;
+      color: #52c41a;
+    }
+
+    .public-tag--available {
+      background: #e6f4ff;
+      color: #1677ff;
+    }
+
+    .public-tag--version {
+      background: #f1f3f5;
+      color: #8a8f96;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .public-card__arrow {
+      color: #ccc;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .public-detail-layer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 60;
+      width: 420px;
+      background: #fff;
+    }
+
+    .public-detail-layer[hidden] {
+      display: none;
+    }
+
+    .public-detail-drawer {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-left: 1px solid #e8ebee;
+      background: #fff;
+      box-shadow: -10px 0 28px rgba(20, 30, 40, .08);
+    }
+
+    .public-homepage.public-split-open .public-navbar__inner,
+    .public-homepage.public-split-open .public-hero__inner,
+    .public-homepage.public-split-open .public-sections {
+      width: min(1100px, calc(100vw - 484px));
+    }
+
+    .public-homepage.public-split-open .public-hero__inner {
+      gap: 24px;
+    }
+
+    .public-homepage.public-split-open .public-hero-panel {
+      width: min(460px, 50%);
+    }
+
+    .public-homepage.public-split-open .public-card-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .public-detail-head {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eef1f3;
+      background: #fff;
+    }
+
+    .public-detail-head h2 {
+      margin: 0;
+      color: #1a1d1f;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .public-detail-close {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #dfe4e8;
+      border-radius: 8px;
+      background: #fff;
+      color: #7a828a;
+      cursor: pointer;
+    }
+
+    .public-detail-close:hover {
+      border-color: #b8c1ca;
+      color: #30363d;
+    }
+
+    .public-detail-close svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .public-detail-body {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 0 20px 24px;
+      background: #fff;
+    }
+
+    .public-detail-summary {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding: 18px 0 16px;
+      border-bottom: 1px solid #f0f2f4;
+      background: #fff;
+    }
+
+    .public-detail-profile {
+      display: grid;
+      grid-template-columns: 54px 1fr auto;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .public-detail-avatar {
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #c8f7df;
+      color: #22b573;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .public-detail-avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .public-detail-title h3 {
+      margin: 0;
+      color: #1a1d1f;
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
+    .public-detail-version {
+      margin-top: 3px;
+      color: #7c848c;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .public-detail-login {
+      height: 32px;
+      padding: 0 14px;
+      border: 1px solid #22b573;
+      border-radius: 8px;
+      background: #22b573;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .public-detail-intro {
+      margin: 14px 0 0;
+      color: #4c555e;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .public-detail-tags,
+    .public-detail-skill-tags {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .public-detail-tags {
+      margin-top: 12px;
+    }
+
+    .public-detail-tag,
+    .public-detail-skill {
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f2f8f5;
+      color: #1b9c61;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .public-detail-section {
+      padding: 18px 0 0;
+    }
+
+    .public-detail-section h4 {
+      margin: 0 0 10px;
+      color: #252a2f;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .public-detail-prompts {
+      display: grid;
+      gap: 8px;
+    }
+
+    .public-detail-prompt {
+      padding: 10px 12px;
+      border: 1px solid #edf1f3;
+      border-radius: 10px;
+      background: #fbfcfd;
+      color: #4a535c;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
     @media (max-width: 960px) {
       .sidebar {
         flex: 0 0 248px;
@@ -7198,6 +7818,108 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     </main>
   </div>
 
+  <div class="public-homepage" id="publicLogoutPage" hidden>
+    <nav class="public-navbar">
+      <div class="public-navbar__inner">
+        <div class="public-navbar__brand">
+          <img class="public-logo-img" src="https://ibd-agent-protal.online.qiyi.qae/iq-logo.png" alt="" aria-hidden="true">
+          <span>IQ Buddy</span>
+        </div>
+        <div class="public-navbar__right">
+          <button class="public-lang-btn" type="button" aria-label="语言">
+            <svg class="public-icon" viewBox="64 64 896 896" fill="currentColor" aria-hidden="true">
+              <path d="M512 64a448 448 0 1 0 0 896 448 448 0 0 0 0-896Zm0 72c34 0 70 35 95 96 7 17 13 35 18 54a474 474 0 0 0-226 0c5-19 11-37 18-54 25-61 61-96 95-96Zm-151 32c-19 29-35 66-47 108a448 448 0 0 1-84-48 376 376 0 0 1 131-60Zm302 0c47 14 92 34 131 60a448 448 0 0 1-84 48c-12-42-28-79-47-108ZM184 284a518 518 0 0 0 114 64 762 762 0 0 0-15 128H137a374 374 0 0 1 47-192Zm703 192H741a762 762 0 0 0-15-128 518 518 0 0 0 114-64 374 374 0 0 1 47 192ZM355 476c2-37 7-73 14-107a405 405 0 0 0 107 22v85H355Zm193-85a405 405 0 0 0 107-22c7 34 12 70 14 107H548v-85Zm-72 157v85a405 405 0 0 0-107 22c-7-34-12-70-14-107h121Zm193 0c-2 37-7 73-14 107a405 405 0 0 0-107-22v-85h121ZM137 548h146c2 45 7 88 15 128a518 518 0 0 0-114 64 374 374 0 0 1-47-192Zm703 192a518 518 0 0 0-114-64c8-40 13-83 15-128h146a374 374 0 0 1-47 192ZM230 796a448 448 0 0 1 84-48c12 42 28 79 47 108a376 376 0 0 1-131-60Zm282 92c-34 0-70-35-95-96-7-17-13-35-18-54a474 474 0 0 1 226 0c-5 19-11 37-18 54-25 61-61 96-95 96Zm151-32c19-29 35-66 47-108a448 448 0 0 1 84 48 376 376 0 0 1-131 60Z"/>
+            </svg>
+            <span>简体中文</span>
+          </button>
+          <button class="public-login-btn" type="button" id="publicLoginBtn">
+            <svg class="public-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M9 21H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h3"/>
+              <path d="M16 17l5-5-5-5"/>
+              <path d="M21 12H9"/>
+            </svg>
+            <span>登录</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <header class="public-hero">
+      <div class="public-hero__inner">
+        <div>
+          <h1>硅基实习生</h1>
+          <p>浏览全部 AI Agent，点击即可开始协作</p>
+        </div>
+        <div class="public-hero-panel">
+          <label class="public-search">
+            <svg class="public-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="M20 20l-3.5-3.5"/>
+            </svg>
+            <input type="search" placeholder="搜索名称、ID 或描述..." autocomplete="off">
+          </label>
+          <div class="public-stats" aria-label="硅基实习生统计">
+            <div class="public-stats__item"><span class="public-stats__num">32</span><span class="public-stats__label">全部</span></div>
+            <div class="public-stats__item"><span class="public-stats__num">15</span><span class="public-stats__label">可使用</span></div>
+            <div class="public-stats__item"><span class="public-stats__num">20</span><span class="public-stats__label">训练中</span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="public-sections">
+      <section class="public-section">
+        <div class="public-section__header">
+          <span class="public-section__icon" aria-hidden="true">✅</span>
+          <h2 class="public-section__title">可使用的硅基实习生</h2>
+          <span class="public-section__count">15</span>
+        </div>
+        <div class="public-card-grid" id="publicServingGrid"></div>
+      </section>
+      <section class="public-section">
+        <div class="public-section__header">
+          <span class="public-section__icon" aria-hidden="true">🔬</span>
+          <h2 class="public-section__title">训练中的硅基实习生</h2>
+          <span class="public-section__count">20</span>
+        </div>
+        <div class="public-card-grid" id="publicTrainingGrid"></div>
+      </section>
+    </main>
+    <div class="public-detail-layer" id="publicDetailLayer" hidden>
+      <aside class="public-detail-drawer" role="complementary" aria-labelledby="publicDetailTitle">
+        <header class="public-detail-head">
+          <h2>实习生详情</h2>
+          <button class="public-detail-close" type="button" id="publicDetailCloseBtn" aria-label="关闭详情">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 6 6 18"/>
+              <path d="m6 6 12 12"/>
+            </svg>
+          </button>
+        </header>
+        <div class="public-detail-body">
+          <div class="public-detail-summary">
+            <div class="public-detail-profile">
+              <div class="public-detail-avatar" id="publicDetailAvatar"></div>
+              <div class="public-detail-title">
+                <h3 id="publicDetailTitle"></h3>
+                <div class="public-detail-version" id="publicDetailVersion"></div>
+              </div>
+              <button class="public-detail-login" type="button" id="publicDetailLoginBtn">登录使用</button>
+            </div>
+            <p class="public-detail-intro" id="publicDetailDesc"></p>
+            <div class="public-detail-tags" id="publicDetailTags"></div>
+          </div>
+          <section class="public-detail-section">
+            <h4>我擅长</h4>
+            <div class="public-detail-skill-tags" id="publicDetailSkills"></div>
+          </section>
+          <section class="public-detail-section">
+            <h4>试试这样问</h4>
+            <div class="public-detail-prompts" id="publicDetailPrompts"></div>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </div>
+
   <div class="toast" id="toast">已选择 Agent</div>
   <div class="confirm-layer" id="deleteConfirmDialog" hidden>
     <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="deleteConfirmTitle">
@@ -7622,6 +8344,21 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     const pageAutomation = document.getElementById("pageAutomation");
     const sessionList = document.getElementById("sessionList");
     const toast = document.getElementById("toast");
+    const appContainer = document.querySelector(".app-container");
+    const publicLogoutPage = document.getElementById("publicLogoutPage");
+    const publicServingGrid = document.getElementById("publicServingGrid");
+    const publicTrainingGrid = document.getElementById("publicTrainingGrid");
+    const publicLoginBtn = document.getElementById("publicLoginBtn");
+    const publicDetailLayer = document.getElementById("publicDetailLayer");
+    const publicDetailCloseBtn = document.getElementById("publicDetailCloseBtn");
+    const publicDetailAvatar = document.getElementById("publicDetailAvatar");
+    const publicDetailTitle = document.getElementById("publicDetailTitle");
+    const publicDetailVersion = document.getElementById("publicDetailVersion");
+    const publicDetailDesc = document.getElementById("publicDetailDesc");
+    const publicDetailTags = document.getElementById("publicDetailTags");
+    const publicDetailSkills = document.getElementById("publicDetailSkills");
+    const publicDetailPrompts = document.getElementById("publicDetailPrompts");
+    const publicDetailLoginBtn = document.getElementById("publicDetailLoginBtn");
     const pageNodes = document.querySelectorAll(".route-page");
     const routeShell = document.querySelector(".portal-center-route-shell");
     const pageChat = document.getElementById("pageChat");
@@ -7833,6 +8570,166 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         '"': "&quot;",
         "'": "&#39;"
       }[char]));
+    }
+
+    function publicOnlyAgentMap() {
+      return {
+        "serving::BI-AI日报助手": { group: "serving", name: "BI-AI日报助手", version: "", desc: "BI-AI日报需求：兑换+点播收入，会员留存，内容" },
+        "serving::促销多语言配置Agent": { group: "serving", name: "促销多语言配置Agent", version: "正式版本 v1", desc: "大促活动中，负责多语言文案的 Key 创建、打包、回填。" },
+        "training::海外 VIP APPID 配置 Agent": { group: "training", name: "海外 VIP APPID 配置 Agent", version: "", desc: "帮你补全 APPID 字段、校验配置，并发布到 Google Play / Apple，同步配置运营后台。" },
+        "training::互动营销Agent": { group: "training", name: "互动营销Agent", version: "", desc: "负责互动营销后台运维、排障。" }
+      };
+    }
+
+    function publicAgentKey(agent) {
+      return `${agent.group}::${agent.name}`;
+    }
+
+    function publicDisplayName(agent) {
+      return agent.name === "YT版权消音助手" ? "版权消音助手" : agent.name;
+    }
+
+    function publicAgentLogo(agent) {
+      const publicLogos = {
+        "剧查查": "https://ibd-agent-protal.online.qiyi.qae/uploads/agent-logos/juchacha.png",
+        "Google Trends": "https://ibd-agent-protal.online.qiyi.qae/uploads/agent-logos/gt.png"
+      };
+      return agent.logo || publicLogos[publicDisplayName(agent)] || "";
+    }
+
+    function publicAgentVersion(agent) {
+      return agent.version || (agent.group === "training" ? "训练默认" : "基座本地");
+    }
+
+    function findPublicAgent(key) {
+      return agents.find(agent => publicAgentKey(agent) === key) || publicOnlyAgentMap()[key] || null;
+    }
+
+    function publicAgentOrder(group) {
+      const preferred = group === "serving"
+        ? ["点墨设计", "剧查查", "BI-AI日报助手", "Google Trends", "YT版权消音助手", "促销多语言配置Agent", "大盘数据分析助手", "短剧内容分析助手", "短剧下载量分析助手", "多语种 SEO 爆款文案生成助手", "拉片Agent", "排播PPT助手", "项目进度透视镜", "TV BI 数据周报分析助手"]
+        : ["YT版权消音助手", "促销多语言配置Agent", "海外 VIP APPID 配置 Agent", "海外宣推文案生成助手", "互动营销Agent", "开发测试", "乐高项目收集助手", "媒体热点助手", "内容生产助手", "排播&媒资助手", "热搜小助手", "搜推助手", "微博热点抓取助手", "项目进度透视镜", "长剧拉片 agent", "长剧内容分析助手", "PengDa助手", "TikTok 海外种草周报助手", "youtube 8303", "YouTube养号之导流评论助手"];
+      const base = agents.filter(agent => agent.group === group);
+      const byName = new Map(base.map(agent => [agent.name, agent]));
+      const byPublicOnlyName = new Map(Object.values(publicOnlyAgentMap()).map(agent => [agent.name, agent]));
+      const ordered = preferred.map(name => byName.get(name) || byPublicOnlyName.get(name)).filter(Boolean);
+      base.forEach(agent => {
+        if (!ordered.includes(agent)) ordered.push(agent);
+      });
+      return ordered;
+    }
+
+    function publicAgentCardHtml(agent) {
+      const isTraining = agent.group === "training";
+      const displayName = publicDisplayName(agent);
+      const version = publicAgentVersion(agent);
+      const logo = publicAgentLogo(agent);
+      const avatar = logo
+        ? `<img src="${escapeHtml(logo)}" alt="${escapeHtml(displayName)}">`
+        : `<span>${escapeHtml(firstLetter(displayName))}</span>`;
+      return `
+        <article class="public-card" role="button" tabindex="0" data-public-agent-key="${escapeHtml(publicAgentKey(agent))}">
+          <div class="public-card__avatar">${avatar}</div>
+          <div class="public-card__content">
+            <div class="public-card__name">${escapeHtml(displayName)}</div>
+            ${agent.version ? `<div class="public-card__version">${escapeHtml(agent.version)}</div>` : ""}
+            <div class="public-card__desc">${escapeHtml(clean(agent.desc))}</div>
+            <div class="public-card__meta">
+              <span class="public-tag public-tag--ready">就绪</span>
+              <span class="public-tag public-tag--available">${isTraining ? "可训练" : "可使用"}</span>
+              <span class="public-tag public-tag--version">${escapeHtml(version)}</span>
+            </div>
+          </div>
+          <div class="public-card__arrow" aria-hidden="true">→</div>
+        </article>
+      `;
+    }
+
+    function renderPublicLogoutPage() {
+      if (!publicServingGrid || !publicTrainingGrid) return;
+      publicServingGrid.innerHTML = publicAgentOrder("serving").slice(0, 15).map(publicAgentCardHtml).join("");
+      publicTrainingGrid.innerHTML = publicAgentOrder("training").slice(0, 20).map(publicAgentCardHtml).join("");
+      bindPublicAgentCards();
+    }
+
+    function publicPromptsForAgent(agent) {
+      const name = publicDisplayName(agent);
+      if (name === "点墨设计") return ["帮我把两张人物图合成一张双人海报。", "把这张海报拆成人物、背景和可复用素材。", "生成适配 Phone / TV / PCW 的无字背景。"];
+      if (name === "剧查查") return ["查询这部剧在 Netflix 和 WeTV 的最新排名。", "对比这部剧在 TH / MY / TW 的榜单表现。", "总结近期上榜地区和排名变化。"];
+      if (name === "Google Trends") return ["对比 3 个关键词过去 30 天热度。", "查看 Netflix 在 SG / HK / TW 的搜索趋势。", "帮我判断这些关键词近期是否反转。"];
+      return [`用${name}帮我梳理当前任务背景。`, `请${name}给出一版执行建议。`, `让${name}总结重点信息和下一步。`];
+    }
+
+    function openPublicAgentDetail(agent) {
+      if (!agent || !publicDetailLayer) return;
+      const displayName = publicDisplayName(agent);
+      const logo = publicAgentLogo(agent);
+      const key = publicAgentKey(agent);
+      publicDetailAvatar.innerHTML = logo
+        ? `<img src="${escapeHtml(logo)}" alt="${escapeHtml(displayName)}">`
+        : `<span>${escapeHtml(firstLetter(displayName))}</span>`;
+      publicDetailTitle.textContent = displayName;
+      publicDetailVersion.textContent = publicAgentVersion(agent);
+      publicDetailDesc.textContent = clean(agent.desc);
+      publicDetailTags.innerHTML = `
+        <span class="public-detail-tag">就绪</span>
+        <span class="public-detail-tag">${agent.group === "training" ? "可训练" : "可使用"}</span>
+        <span class="public-detail-tag">${escapeHtml(agent.group === "training" ? "训练版本" : "正式版本")}</span>
+      `;
+      const skills = agentCardSpecialtyTags(agent).length ? agentCardSpecialtyTags(agent) : [agentCategory(agent), publicAgentVersion(agent)];
+      publicDetailSkills.innerHTML = skills.map(skill => `<span class="public-detail-skill">${escapeHtml(skill)}</span>`).join("");
+      publicDetailPrompts.innerHTML = publicPromptsForAgent(agent)
+        .map(prompt => `<div class="public-detail-prompt">${escapeHtml(prompt)}</div>`)
+        .join("");
+      publicDetailLayer.hidden = false;
+      publicLogoutPage?.classList.add("public-split-open");
+      document.querySelectorAll(".public-card[data-public-agent-key]").forEach(card => {
+        const selected = card.dataset.publicAgentKey === key;
+        card.classList.toggle("public-card--selected", selected);
+        card.setAttribute("aria-pressed", selected ? "true" : "false");
+      });
+    }
+
+    function closePublicAgentDetail() {
+      if (publicDetailLayer) publicDetailLayer.hidden = true;
+      publicLogoutPage?.classList.remove("public-split-open");
+      document.querySelectorAll(".public-card.public-card--selected").forEach(card => {
+        card.classList.remove("public-card--selected");
+        card.setAttribute("aria-pressed", "false");
+      });
+    }
+
+    function bindPublicAgentCards() {
+      document.querySelectorAll(".public-card[data-public-agent-key]").forEach(card => {
+        card.setAttribute("aria-pressed", "false");
+        const open = () => openPublicAgentDetail(findPublicAgent(card.dataset.publicAgentKey));
+        card.addEventListener("click", open);
+        card.addEventListener("keydown", event => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          open();
+        });
+      });
+    }
+
+    function showPublicLogoutPage() {
+      closeUserMenu();
+      closeAgentDrawer();
+      closeChatSplitView();
+      closePublicAgentDetail();
+      document.body.classList.add("logged-out");
+      if (appContainer) appContainer.hidden = true;
+      if (publicLogoutPage) publicLogoutPage.hidden = false;
+      hideGlobalScrollThumb(routeShell);
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+
+    function hidePublicLogoutPage() {
+      document.body.classList.remove("logged-out");
+      if (publicLogoutPage) publicLogoutPage.hidden = true;
+      if (appContainer) appContainer.hidden = false;
+      showPage("agents");
+      window.scrollTo({ top: 0, behavior: "auto" });
     }
 
     function createSessionTitle(text) {
@@ -10400,8 +11297,13 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       closeUserMenu();
     });
     document.getElementById("logoutBtn").addEventListener("click", () => {
-      showToast("已返回登录入口");
-      closeUserMenu();
+      showPublicLogoutPage();
+    });
+    publicLoginBtn?.addEventListener("click", hidePublicLogoutPage);
+    publicDetailLoginBtn?.addEventListener("click", hidePublicLogoutPage);
+    publicDetailCloseBtn?.addEventListener("click", closePublicAgentDetail);
+    publicDetailLayer?.addEventListener("click", event => {
+      if (event.target === publicDetailLayer) closePublicAgentDetail();
     });
     chatSidePanelCloseBtn.addEventListener("click", closeChatSplitView);
     chatSidePanelAllTasksBtn?.addEventListener("click", () => {
@@ -10598,6 +11500,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     });
 
     setupConnectionDescTooltips();
+    renderPublicLogoutPage();
     render();
     renderAutomationScopeStats();
     showPage("agents");
