@@ -58,6 +58,7 @@
     }
 
     .logo {
+      position: relative;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -104,6 +105,58 @@
       letter-spacing: -.3px;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+
+    .logo-lang-switch {
+      position: relative;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .logo-lang-btn {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 4px 2px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: #858b92;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.2;
+      transition: color .13s ease;
+    }
+
+    .logo-lang-btn:hover,
+    .logo-lang-btn.active {
+      background: transparent;
+      color: #33383d;
+    }
+
+    .logo-lang-btn svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      stroke-width: 1.5;
+    }
+
+    .logo-lang-btn__chevron {
+      width: 6px;
+      height: 6px;
+      margin-left: 1px;
+      border-right: 1.2px solid currentColor;
+      border-bottom: 1.2px solid currentColor;
+      transform: rotate(45deg) translateY(-1px);
+    }
+
+    .logo-lang-switch .nav-user-submenu {
+      left: auto;
+      right: 0;
+      top: calc(100% + 8px);
     }
 
     .nav-group { margin-bottom: 6px; }
@@ -191,6 +244,8 @@
     .sess-head {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 8px;
       padding: 6px 12px 2px;
     }
 
@@ -202,6 +257,45 @@
       font-weight: 600;
       letter-spacing: .4px;
       line-height: 1.4;
+    }
+
+    .session-history-bulk-toggle {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      border: 1px solid #e2e6ea;
+      border-radius: 6px;
+      background: #fff;
+      color: #747b83;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(20, 30, 40, .03);
+      transition: border-color .13s ease, background-color .13s ease, color .13s ease, box-shadow .13s ease;
+    }
+
+    .session-history-bulk-toggle:hover {
+      border-color: #cfd5db;
+      background: #f7f9fb;
+      color: #33383d;
+      box-shadow: 0 2px 5px rgba(20, 30, 40, .06);
+    }
+
+    .session-history-bulk-toggle.collapsed {
+      background: #f5f7fa;
+    }
+
+    .session-history-bulk-toggle.collapsed svg {
+      transform: rotate(180deg);
+    }
+
+    .session-history-bulk-toggle svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      stroke-width: 1.2;
+      transition: transform .13s ease;
     }
 
     .nav-sessions {
@@ -929,24 +1023,6 @@
       text-decoration: none;
     }
 
-    .emp-header-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px 16px;
-    }
-
-    .emp-viewer-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--color-primary-light);
-      color: var(--color-primary);
-      font-size: 13px;
-      font-weight: 500;
-    }
-
     .emp-header-desc {
       margin: 0;
       color: #697482;
@@ -989,18 +1065,53 @@
       display: flex;
       align-items: center;
       flex-wrap: nowrap;
-      gap: 12px;
+      gap: 16px;
       overflow: hidden;
     }
 
+    .pool-tab-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      height: 40px;
+      padding: 3px;
+      border: 1px solid #e6eaee;
+      border-radius: 10px;
+      background: #eef1f4;
+    }
+
+    .pool-tab-group--business {
+      flex: 0 1 auto;
+    }
+
+    .pool-tab-group--pending {
+      position: relative;
+      flex: 0 0 auto;
+      margin-left: 12px;
+      background: #eef1f4;
+    }
+
+    .pool-tab-group--pending::before {
+      content: "";
+      position: absolute;
+      left: -15px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      border-radius: 999px;
+      background: #d9dee4;
+    }
+
     .pool-btn {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 4px;
       flex: 0 1 auto;
       min-width: 0;
-      min-height: 32px;
-      padding: 6px 14px;
+      height: 32px;
+      padding: 7px 10px;
       border: 0;
       border-radius: 8px;
       background: transparent;
@@ -1012,18 +1123,18 @@
       overflow: hidden;
       text-overflow: ellipsis;
       box-shadow: none;
-      transition: color .13s ease, background-color .13s ease;
+      transition: color .13s ease, background-color .13s ease, box-shadow .13s ease;
     }
 
     .pool-btn.active {
-      background: #e6eaee;
+      background: #fff;
       color: #1a1d1f;
-      box-shadow: none;
+      box-shadow: 0 1px 3px rgba(20, 30, 40, .08);
     }
 
     .pool-btn:not(.active):hover {
-      color: #1a1d1f;
-      background: rgba(255, 255, 255, .65);
+      color: #12824c;
+      background: transparent;
     }
 
     .pool-btn-count {
@@ -1082,12 +1193,17 @@
       }
 
       .pool-seg {
-        gap: 8px;
+        gap: 12px;
+      }
+
+      .pool-tab-group {
+        gap: 5px;
+        padding: 3px;
       }
 
       .pool-btn {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 7px;
+        padding-right: 7px;
       }
 
       .search {
@@ -1387,6 +1503,42 @@
       border-color: #f1d59a;
       background: #fff7e8;
       color: #c8842a;
+    }
+
+    .cbtn.pending-permission {
+      border-color: #f1b84b;
+      background: transparent;
+      color: #b66b18;
+    }
+
+    .cbtn.pending-permission:hover {
+      border-color: #d99a22;
+      background: #fff1d6;
+      color: #8f5200;
+    }
+
+    .cbtn.pending-permission.pending {
+      border-color: #dde1e5;
+      background: #f5f6f8;
+      color: #8a9199;
+    }
+
+    .cbtn.pending-permission.pending:hover {
+      border-color: #cfd5db;
+      background: #eef1f3;
+      color: #6b7178;
+    }
+
+    .cbtn.pending-train {
+      border-color: #d99a22;
+      background: #d99a22;
+      color: #fff;
+    }
+
+    .cbtn.pending-train:hover {
+      border-color: #bf7d12;
+      background: #bf7d12;
+      color: #fff;
     }
 
     .cbtn.permission {
@@ -6466,17 +6618,28 @@
           <div class="logo-icon" aria-hidden="true"></div>
           <span class="logo-name">IQ Buddy</span>
         </button>
+        <div class="logo-lang-switch">
+          <button class="logo-lang-btn" type="button" id="langBtn" aria-haspopup="menu" aria-expanded="false" aria-label="语言切换">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21"/><path d="M12 3c-2.2 2.4-3.3 5.4-3.3 9s1.1 6.6 3.3 9"/></svg>
+            <span id="currentLangLabel">简体中文</span>
+            <span class="logo-lang-btn__chevron" aria-hidden="true"></span>
+          </button>
+          <div class="nav-user-submenu" id="languageSubMenu" role="menu" hidden>
+            <button class="nav-user-submenu__item active" type="button" data-lang="简体中文" role="menuitem">简体中文</button>
+            <button class="nav-user-submenu__item" type="button" data-lang="英文" role="menuitem">英文</button>
+          </div>
+        </div>
       </div>
 
       <section class="nav-group">
-        <button class="nav-item active" type="button" data-nav="agents" data-agent-view="default">
-          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>
-          <span>硅基实习生-分栏</span>
-          <span class="nav-item__tag">11</span>
-        </button>
-        <button class="nav-item" type="button" data-nav="agents" data-agent-view="drawer">
+        <button class="nav-item active" type="button" data-nav="agents" data-agent-view="drawer">
           <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>
           <span>硅基实习生-抽屉</span>
+          <span class="nav-item__tag">11</span>
+        </button>
+        <button class="nav-item" type="button" data-nav="agents" data-agent-view="default">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>
+          <span>硅基实习生-分栏</span>
           <span class="nav-item__tag">11</span>
         </button>
         <button class="nav-item" type="button" data-nav="agents" data-agent-view="modal">
@@ -6501,7 +6664,17 @@
       <div class="nav-divider"></div>
 
       <section class="nav-session-section">
-        <div class="sess-head"><span class="nav-label">会话/任务</span></div>
+        <div class="sess-head">
+          <span class="nav-label">会话/任务</span>
+          <button class="session-history-bulk-toggle" type="button" id="sessionHistoryBulkToggle" title="收起全部会话历史" aria-label="收起全部会话历史" aria-expanded="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 7h8"/>
+              <path d="M5 12h8"/>
+              <path d="M5 17h8"/>
+              <path class="session-history-bulk-chevron" d="m16 9 3 3-3 3"/>
+            </svg>
+          </button>
+        </div>
         <div class="nav-sessions">
           <div class="agent-grp">
             <div class="grp-items" id="sessionList"></div>
@@ -6518,18 +6691,6 @@
           </div>
         </button>
         <div class="nav-user-menu" id="navUserMenu" role="menu" hidden>
-          <button class="nav-user-menu__item" type="button" id="langBtn" role="menuitem" aria-haspopup="menu" aria-expanded="false">
-            <span class="nav-user-menu__label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21"/><path d="M12 3c-2.2 2.4-3.3 5.4-3.3 9s1.1 6.6 3.3 9"/></svg>
-              语言切换
-            </span>
-            <span class="nav-user-menu__meta" id="currentLangLabel">简体中文</span>
-            <span class="nav-user-menu__chevron" aria-hidden="true"></span>
-          </button>
-          <div class="nav-user-submenu" id="languageSubMenu" role="menu" hidden>
-            <button class="nav-user-submenu__item active" type="button" data-lang="简体中文" role="menuitem">简体中文</button>
-            <button class="nav-user-submenu__item" type="button" data-lang="英文" role="menuitem">英文</button>
-          </div>
           <button class="nav-user-menu__item" type="button" id="refreshBtn" role="menuitem">
             <span class="nav-user-menu__label">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-13.6-5.6L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 13.6 5.6L20 16"/><path d="M20 20v-4h-4"/></svg>
@@ -6556,9 +6717,6 @@
                   <button class="agent-title-tab active" type="button" data-agent-scope="all">全体实习生</button>
                   <button class="agent-title-tab" type="button" data-agent-scope="mine">我的实习生</button>
                 </nav>
-                <div class="emp-header-actions">
-                  <span class="emp-viewer-badge">访问用户 · 30 个 Agent</span>
-                </div>
               </div>
               <p class="emp-header-desc" id="agentScopeSubtitle">发现适合的实习生，让每项任务都有最佳助手</p>
             </header>
@@ -6566,11 +6724,16 @@
             <div class="body">
               <div class="toolbar">
                 <div class="pool-seg" role="tablist" aria-label="实习生分类">
-                  <button class="pool-btn active" type="button" data-filter="all">全部</button>
-                  <button class="pool-btn" type="button" data-filter="seeding">种草业务线</button>
-                  <button class="pool-btn" type="button" data-filter="content">内容运营</button>
-                  <button class="pool-btn" type="button" data-filter="member">会员运营</button>
-                  <button class="pool-btn" type="button" data-filter="data">数据分析</button>
+                  <div class="pool-tab-group pool-tab-group--business" aria-label="业务分类">
+                    <button class="pool-btn active" type="button" data-filter="all">全部</button>
+                    <button class="pool-btn" type="button" data-filter="seeding">种草业务线</button>
+                    <button class="pool-btn" type="button" data-filter="content">内容运营</button>
+                    <button class="pool-btn" type="button" data-filter="data">数据分析</button>
+                    <button class="pool-btn" type="button" data-filter="member">会员运营</button>
+                  </div>
+                  <div class="pool-tab-group pool-tab-group--pending" aria-label="待上线分类">
+                    <button class="pool-btn" type="button" data-filter="pending">待上线</button>
+                  </div>
                 </div>
                 <div class="tb-spacer"></div>
                 <label class="search">
@@ -8295,7 +8458,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       drawer: { scope: "all", category: "all", query: "", drawerAgent: "", drawerRequiresPermission: false },
       modal: { scope: "all", category: "all", query: "", drawerAgent: "", drawerRequiresPermission: false }
     };
-    const state = { page: "agents", agentView: "default", selected: "大盘数据分析助手", activeSessionId: "", automationView: "automation" };
+    const state = { page: "agents", agentView: "drawer", selected: "大盘数据分析助手", selectedAgentGroup: "serving", activeSessionId: "", automationView: "automation" };
     function activeAgentViewState() {
       return agentViewStates[state.agentView] || agentViewStates.default;
     }
@@ -8343,6 +8506,8 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     const automationScopeSubtitle = document.getElementById("automationScopeSubtitle");
     const pageAutomation = document.getElementById("pageAutomation");
     const sessionList = document.getElementById("sessionList");
+    const navSessions = sessionList?.closest(".nav-sessions");
+    const sessionHistoryBulkToggle = document.getElementById("sessionHistoryBulkToggle");
     const toast = document.getElementById("toast");
     const appContainer = document.querySelector(".app-container");
     const publicLogoutPage = document.getElementById("publicLogoutPage");
@@ -8751,6 +8916,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const history = {
         id: `created-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         agentName: agent.name,
+        agentGroup: agent.group,
         title,
         time: "刚刚",
         index: 0,
@@ -8767,6 +8933,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const history = {
         id: `blank-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         agentName: agent.name,
+        agentGroup: agent.group,
         title: "未命名对话",
         time: "刚刚",
         index: 0,
@@ -8781,6 +8948,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const history = {
         id: `inline-task-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         agentName: agent.name,
+        agentGroup: agent.group,
         title: "未命名对话",
         time: "刚刚",
         index: 0,
@@ -8800,6 +8968,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const history = {
         id: `task-form-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         agentName: agent.name,
+        agentGroup: agent.group,
         title: "新建任务",
         time: "刚刚",
         index: 0,
@@ -8832,7 +9001,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
 
     function refreshCreatedSessionView(agent, history) {
       renderSessions();
-      if (state.page === "chat" && state.selected === agent.name && state.activeSessionId === history.id) {
+      if (isActiveChatAgent(agent) && state.activeSessionId === history.id) {
         renderChat();
       }
     }
@@ -8860,7 +9029,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const stepTimer = window.setInterval(() => {
         const elapsed = Date.now() - startedAt;
         history.thinkingStep = Math.min(thinkingSteps.length - 1, Math.floor(elapsed / 1600));
-        if (state.page === "chat" && state.selected === agent.name && state.activeSessionId === history.id) {
+        if (isActiveChatAgent(agent) && state.activeSessionId === history.id) {
           renderChat();
         }
       }, 900);
@@ -9133,12 +9302,34 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       return servingIndex >= 4 && servingIndex < 8;
     }
 
+    function pendingAgents() {
+      return agents.filter(agent => agent.group === "training");
+    }
+
+    function pendingAgentIndex(agent) {
+      return pendingAgents().indexOf(agent);
+    }
+
+    function isPendingPermissionAgent(agent) {
+      const index = pendingAgentIndex(agent);
+      return index >= 5;
+    }
+
+    function isPendingTrainingAgent(agent) {
+      const index = pendingAgentIndex(agent);
+      return index >= 0 && index < 5;
+    }
+
     function hasPendingPermissionRequest(agent) {
       return Boolean(agent && permissionRequestAgentNames.has(agent.name));
     }
 
     function submitPermissionRequest(agent) {
       if (!agent) return;
+      if (hasPendingPermissionRequest(agent)) {
+        showToast("权限申请处理中，请等候批准");
+        return;
+      }
       permissionRequestAgentNames.add(agent.name);
       showToast("申请已提交，请等候批准");
       render();
@@ -9637,6 +9828,20 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       updateGlobalScrollThumb(routeShell);
     }
 
+    function scrollSessionAgentToViewCenter(agent, behavior = "smooth") {
+      if (!navSessions || !sessionList || !agent) return;
+      const targetKey = publicAgentKey(agent);
+      const group = Array.from(sessionList.querySelectorAll(".session-agent-group"))
+        .find(item => item.dataset.sessionAgentKey === targetKey);
+      if (!group) return;
+      const scrollerRect = navSessions.getBoundingClientRect();
+      const groupRect = group.getBoundingClientRect();
+      const desiredTop = scrollerRect.top + Math.max(0, (scrollerRect.height - groupRect.height) / 2);
+      const maxTop = Math.max(0, navSessions.scrollHeight - navSessions.clientHeight);
+      const nextTop = Math.min(maxTop, Math.max(0, navSessions.scrollTop + groupRect.top - desiredTop));
+      navSessions.scrollTo({ top: nextTop, behavior });
+    }
+
     function saveRouteScroll(page = state.page, agentView = state.agentView) {
       if (!routeShell || !page) return;
       routeScrollPositions.set(routeScrollKey(page, agentView), routeShell.scrollTop);
@@ -9654,6 +9859,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       navUserProfileBtn.classList.remove("active");
       navUserProfileBtn.setAttribute("aria-expanded", "false");
       langBtn.setAttribute("aria-expanded", "false");
+      langBtn.classList.remove("active");
     }
 
     function setupConnectionDescTooltips() {
@@ -9666,23 +9872,34 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     function toggleUserMenu() {
       const willOpen = navUserMenu.hidden;
       navUserMenu.hidden = !willOpen;
+      languageSubMenu.hidden = true;
+      langBtn.setAttribute("aria-expanded", "false");
+      langBtn.classList.remove("active");
       navUserProfileBtn.classList.toggle("active", willOpen);
       navUserProfileBtn.setAttribute("aria-expanded", String(willOpen));
     }
 
     function selectedAgent() {
-      return agents.find(agent => agent.name === state.selected) || agents[0];
+      return agents.find(agent => agent.name === state.selected && agent.group === state.selectedAgentGroup) || agents.find(agent => agent.name === state.selected) || agents[0];
     }
 
     function isConversationAgent(agent) {
-      return agent.group === "serving" && !conversationHiddenAgentNames.has(agent.name);
+      return (agent.group === "serving" && !conversationHiddenAgentNames.has(agent.name)) || isPendingTrainingAgent(agent);
+    }
+
+    function isActiveChatAgent(agent) {
+      return state.page === "chat" && state.selected === agent.name && state.selectedAgentGroup === agent.group;
+    }
+
+    function historyBelongsToAgent(history, agent) {
+      return history.agentName === agent.name && (!history.agentGroup || history.agentGroup === agent.group);
     }
 
     function sessionHistories(agent) {
       if (agent.name === "Tiktok上传2") {
         seededInlineTaskHistory.title = renamedSessionTitles.get(seededInlineTaskHistory.id) || "tiktok自动化任务0";
         const createdHistories = createdSessionHistories
-          .filter(history => history.agentName === agent.name)
+          .filter(history => historyBelongsToAgent(history, agent))
           .map(history => ({
             ...history,
             title: renamedSessionTitles.get(history.id) || history.title
@@ -9691,7 +9908,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       }
       if (agent.name === "Tiktok上传") {
         const createdHistories = createdSessionHistories
-          .filter(history => history.agentName === agent.name && !["每日tiktok上传1"].includes(history.automationTaskName || history.title))
+          .filter(history => historyBelongsToAgent(history, agent) && !["每日tiktok上传1"].includes(history.automationTaskName || history.title))
           .map(history => ({
             ...history,
             title: renamedSessionTitles.get(history.id) || history.title
@@ -9717,7 +9934,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         const taskPool = ["Facebook养号-种草1", "Facebook养号-种草2", "Facebook养号-点赞"];
         const timePool = ["30分钟前", "1天前", "3天前"];
         const createdHistories = createdSessionHistories
-          .filter(history => history.agentName === agent.name && !taskPool.includes(history.automationTaskName || history.title))
+          .filter(history => historyBelongsToAgent(history, agent) && !taskPool.includes(history.automationTaskName || history.title))
           .map(history => ({
             ...history,
             title: renamedSessionTitles.get(history.id) || history.title
@@ -9742,7 +9959,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         const timePool = ["30分钟前", "1天前", "3天前"];
         const taskKeys = taskPool.map((_, index) => `${agent.name}::${index}`);
         const createdHistories = createdSessionHistories
-          .filter(history => history.agentName === agent.name && !taskKeys.includes(history.automationTaskKey || ""))
+          .filter(history => historyBelongsToAgent(history, agent) && !taskKeys.includes(history.automationTaskKey || ""))
           .map(history => ({
             ...history,
             title: renamedSessionTitles.get(history.id) || history.title
@@ -9776,7 +9993,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const seed = Array.from(agent.name).reduce((sum, char) => sum + char.charCodeAt(0), 0);
       const count = agent.name === "大盘数据分析助手" ? 7 : 2 + (seed % 2);
       const createdHistories = createdSessionHistories
-        .filter(history => history.agentName === agent.name)
+        .filter(history => historyBelongsToAgent(history, agent))
         .map(history => ({
           ...history,
           title: renamedSessionTitles.get(history.id) || history.title
@@ -9807,6 +10024,39 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       if (agent.name === "大盘数据分析助手") return 3;
       const seed = Array.from(`${agent.name}-history-preview`).reduce((sum, char) => sum + char.charCodeAt(0), 0);
       return seed % 4;
+    }
+
+    function agentsWithSessionHistories() {
+      return agents.filter(isConversationAgent).filter(agent => visibleSessionHistories(agent).length > 0);
+    }
+
+    function areAllSessionHistoriesCollapsed() {
+      const sessionAgents = agentsWithSessionHistories();
+      return sessionAgents.length > 0 && sessionAgents.every(agent => collapsedSessionHistoryAgents.has(agent.name));
+    }
+
+    function syncSessionHistoryBulkToggle() {
+      if (!sessionHistoryBulkToggle) return;
+      const allCollapsed = areAllSessionHistoriesCollapsed();
+      const label = allCollapsed ? "展开全部会话历史" : "收起全部会话历史";
+      sessionHistoryBulkToggle.classList.toggle("collapsed", allCollapsed);
+      sessionHistoryBulkToggle.title = label;
+      sessionHistoryBulkToggle.setAttribute("aria-label", label);
+      sessionHistoryBulkToggle.setAttribute("aria-expanded", String(!allCollapsed));
+    }
+
+    function toggleAllSessionHistories() {
+      const sessionAgents = agentsWithSessionHistories();
+      if (!sessionAgents.length) return;
+      const shouldExpand = areAllSessionHistoriesCollapsed();
+      sessionAgents.forEach(agent => {
+        if (shouldExpand) {
+          collapsedSessionHistoryAgents.delete(agent.name);
+        } else {
+          collapsedSessionHistoryAgents.add(agent.name);
+        }
+      });
+      renderSessions();
     }
 
     function sourceCreatedHistory(history) {
@@ -9952,7 +10202,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       agentDrawerAvatar.innerHTML = agent.logo ? `<img src="${agent.logo}" alt="${agent.name}">` : firstLetter(agent.name);
       agentDrawerTitle.textContent = agent.name;
       agentDrawerVersion.textContent = agent.version || (agent.group === "training" ? "候选版本" : "正式版本");
-      agentDrawerStatus.textContent = agent.group === "training" ? "训练中" : "可使用";
+      agentDrawerStatus.textContent = agent.group === "training" ? "测试中" : "可使用";
       agentDrawerCategory.textContent = agentCategory(agent);
       agentDrawerDesc.textContent = clean(agent.desc);
       const isTaskAgent = isCopyrightTaskAgent(agent);
@@ -9971,12 +10221,15 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
           agentDrawerPromptsSection?.insertBefore(agentDrawerPromptsTitle, agentDrawerPrompts);
         }
       }
-      agentDrawerStartBtn.innerHTML = viewState.drawerRequiresPermission
-        ? actionButtonContent(isPendingPermission ? "申请中" : "开通权限")
+      agentDrawerStartBtn.innerHTML = isPendingTrainingAgent(agent)
+        ? actionButtonContent("待上线")
+        : viewState.drawerRequiresPermission
+        ? actionButtonContent(isPendingPermission ? "申请中" : "申请权限")
         : isTaskAgent
           ? actionButtonContent("新建任务", "task")
           : actionButtonContent("新建对话", "chat");
-      agentDrawerStartBtn.className = `cbtn ${viewState.drawerRequiresPermission ? `permission${isPendingPermission ? " pending" : ""}` : "primary"}`;
+      agentDrawerStartBtn.className = `cbtn ${isPendingTrainingAgent(agent) ? "pending-train" : agent.group === "training" ? `pending-permission${isPendingPermission && isPendingPermissionAgent(agent) ? " pending" : ""}` : viewState.drawerRequiresPermission ? `permission${isPendingPermission ? " pending" : ""}` : "primary"}`;
+      agentDrawerStartBtn.disabled = isPendingTrainingAgent(agent);
       agentDrawerSkills.innerHTML = "";
       agentCardSpecialtyTags(agent).forEach((skill, index) => {
         const tag = document.createElement("span");
@@ -10447,7 +10700,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const agent = targetAgent || selectedAgent();
       const history = targetHistory || activeHistoryFor(agent);
       if (!history) return;
-      pendingDeleteSession = { agentName: agent.name, historyId: history.id, title: history.title };
+      pendingDeleteSession = { agentName: agent.name, agentGroup: agent.group, historyId: history.id, title: history.title };
       deleteConfirmText.textContent = `确定删除「${history.title}」吗？删除后该会话将从会话/任务列表中移除。`;
       deleteConfirmDialog.hidden = false;
     }
@@ -10614,12 +10867,13 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
 
     function confirmDeleteSession() {
       if (!pendingDeleteSession) return;
-      const agent = agents.find(item => item.name === pendingDeleteSession.agentName);
+      const agent = agents.find(item => item.name === pendingDeleteSession.agentName && item.group === pendingDeleteSession.agentGroup) || agents.find(item => item.name === pendingDeleteSession.agentName);
       deletedSessionIds.add(pendingDeleteSession.historyId);
       closeDeleteConfirm();
       if (agent) {
         const nextHistory = visibleSessionHistories(agent)[0];
         state.selected = agent.name;
+        state.selectedAgentGroup = agent.group;
         state.activeSessionId = nextHistory?.id || "";
       }
       renderSessions();
@@ -10677,25 +10931,25 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       chatTitle.addEventListener("keydown", onKeydown);
     }
 
-    function openNewAgentConversation(agent) {
+    function openNewAgentConversation(agent, options = {}) {
       if (isInlineTaskChatAgent(agent)) {
         resetInlineTaskForm(false);
         const history = addInlineTaskConversation(agent);
-        openChat(agent, history, { justCreated: true });
+        openChat(agent, history, { ...options, justCreated: true });
         return;
       }
       const history = addBlankConversation(agent);
-      openChat(agent, history, { justCreated: true });
+      openChat(agent, history, { ...options, justCreated: true });
     }
 
-    function openNewAgentTask(agent) {
+    function openNewAgentTask(agent, options = {}) {
       const history = addNewTaskDetail(agent);
-      openChat(agent, history, { justCreated: true });
+      openChat(agent, history, { ...options, justCreated: true });
     }
 
     function openTaskCreateForm(agent) {
       const draft = createdSessionHistories.find(history =>
-        history.agentName === agent.name &&
+        historyBelongsToAgent(history, agent) &&
         history.isTaskDetail &&
         history.isNewTask &&
         !deletedSessionIds.has(history.id)
@@ -10740,7 +10994,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const taskName = automationTaskNameFromRow(row);
       const taskKey = automationTaskKeyFromRow(row, agent.name);
       const matchesTaskName = history => history.automationTaskKey ? history.automationTaskKey === taskKey : (history.automationTaskName || history.title) === taskName;
-      const existingCreated = createdSessionHistories.find(history => history.agentName === agent.name && history.isTaskDetail && matchesTaskName(history));
+      const existingCreated = createdSessionHistories.find(history => historyBelongsToAgent(history, agent) && history.isTaskDetail && matchesTaskName(history));
       if (existingCreated) return existingCreated;
       const existingHistory = sessionHistories(agent).find(history => history.isTaskDetail && matchesTaskName(history));
       if (existingHistory) return existingHistory;
@@ -10748,6 +11002,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const history = {
         id: `automation-task-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         agentName: agent.name,
+        agentGroup: agent.group,
         title: taskName,
         automationTaskName: taskName,
         automationTaskKey: taskKey,
@@ -10780,12 +11035,16 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
 
     function openChat(agent, history, options = {}) {
       state.selected = agent.name;
+      state.selectedAgentGroup = agent.group;
       state.activeSessionId = history?.id || activeHistoryFor(agent)?.id || "";
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur();
       }
       renderSessions();
       showPage("chat");
+      if (options.centerSessionAgent) {
+        requestAnimationFrame(() => scrollSessionAgentToViewCenter(agent));
+      }
       showToast(options.justCreated ? `已新建「${history.title}」` : history ? `进入「${history.title}」` : `进入 ${agent.name} 对话`);
     }
 
@@ -10822,11 +11081,12 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     function filtered(group) {
       const viewState = activeAgentViewState();
       const q = normalize(viewState.query);
+      const isPendingFilter = viewState.category === "pending";
       return agents.filter(agent => {
         const scopeMatch = agentInScope(agent);
-        const groupMatch = agent.group === group;
+        const groupMatch = isPendingFilter ? group === "serving" && agent.group === "training" : agent.group === group;
         const permissionMatch = viewState.scope !== "mine" || !isPermissionAgent(agent);
-        const categoryMatch = viewState.category === "all" || agentCategory(agent) === viewState.category;
+        const categoryMatch = isPendingFilter || viewState.category === "all" || agentCategory(agent) === viewState.category;
         const queryMatch = !q || normalize(agent.name + " " + agent.version + " " + agent.desc).includes(q);
         return scopeMatch && groupMatch && permissionMatch && categoryMatch && queryMatch;
       });
@@ -10837,9 +11097,9 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const q = normalize(viewState.query);
       return agents.filter(agent => {
         const scopeMatch = agentInScope(agent);
-        const groupMatch = agent.group === "serving";
+        const groupMatch = category === "pending" ? agent.group === "training" : agent.group === "serving";
         const permissionMatch = viewState.scope !== "mine" || !isPermissionAgent(agent);
-        const categoryMatch = category === "all" || agentCategory(agent) === category;
+        const categoryMatch = category === "pending" || category === "all" || agentCategory(agent) === category;
         const queryMatch = !q || normalize(agent.name + " " + agent.version + " " + agent.desc).includes(q);
         return scopeMatch && groupMatch && permissionMatch && categoryMatch && queryMatch;
       }).length;
@@ -10853,7 +11113,8 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
           countNode.className = "pool-btn-count";
           button.appendChild(countNode);
         }
-        countNode.textContent = countAgentsForCategory(button.dataset.filter);
+        const count = countAgentsForCategory(button.dataset.filter);
+        countNode.textContent = count;
       });
     }
 
@@ -10861,9 +11122,11 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const isPermissionCard = isPermissionAgent(agent);
       const isTaskCard = isCopyrightTaskAgent(agent);
       const isPendingPermission = hasPendingPermissionRequest(agent);
-      const actionClass = agent.group === "training" ? "train" : isPermissionCard ? `permission${isPendingPermission ? " pending" : ""}` : "primary";
-      const actionText = agent.group === "training" ? "训练" : isTaskCard ? "新建任务" : isPermissionCard ? (isPendingPermission ? "申请中" : "开通权限") : "新建对话";
-      const actionIcon = isTaskCard ? "task" : !isPermissionCard && agent.group !== "training" ? "chat" : "";
+      const isPendingPermissionCard = isPendingPermissionAgent(agent);
+      const isPendingTrainingCard = isPendingTrainingAgent(agent);
+      const actionClass = isPendingPermissionCard ? `pending-permission${isPendingPermission ? " pending" : ""}` : isPendingTrainingCard ? "pending-train" : isPermissionCard ? `permission${isPendingPermission ? " pending" : ""}` : "primary";
+      const actionText = isPendingPermissionCard ? (isPendingPermission ? "申请中" : "申请权限") : isPendingTrainingCard ? "去训练" : isTaskCard ? "新建任务" : isPermissionCard ? (isPendingPermission ? "申请中" : "申请权限") : "新建对话";
+      const actionIcon = isTaskCard ? "task" : !isPermissionCard && !isPendingPermissionCard && agent.group !== "training" ? "chat" : "";
       const specialtyTagHtml = agentCardSpecialtyTags(agent)
         .map((tag, index) => `<span class="st-tag st-specialty-${index}" title="${escapeHtml(tag)}">${escapeHtml(tag)}</span>`)
         .join("");
@@ -10893,19 +11156,23 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       const actionButton = card.querySelector(".acard-acts button");
       actionButton.addEventListener("click", event => {
         event.stopPropagation();
-        if (agent.group === "training") {
-          showToast("该实习生仍在训练中");
+        if (isPendingPermissionCard) {
+          submitPermissionRequest(agent);
+          return;
+        }
+        if (isPendingTrainingCard) {
+          openNewAgentConversation(agent, { centerSessionAgent: true });
           return;
         }
         if (isTaskCard) {
-          openNewAgentTask(agent);
+          openNewAgentTask(agent, { centerSessionAgent: true });
           return;
         }
         if (isPermissionCard) {
-          toggleAgentDrawer(agent, true);
+          submitPermissionRequest(agent);
           return;
         }
-        openNewAgentConversation(agent);
+        openNewAgentConversation(agent, { centerSessionAgent: true });
       });
       card.addEventListener("click", () => {
         activateAgentCard(agent, isPermissionCard, isTaskCard);
@@ -10920,16 +11187,24 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     }
 
     function activateAgentCard(agent, isPermissionCard = isPermissionAgent(agent), isTaskCard = isCopyrightTaskAgent(agent)) {
+      if (isPendingPermissionAgent(agent)) {
+        toggleAgentDrawer(agent, true);
+        return;
+      }
+      if (isPendingTrainingAgent(agent)) {
+        openNewAgentConversation(agent, { centerSessionAgent: true });
+        return;
+      }
       if (isAgentDrawerView()) {
         if (isPermissionCard) {
           toggleAgentDrawer(agent, true);
           return;
         }
         if (isTaskCard) {
-          openNewAgentTask(agent);
+          openNewAgentTask(agent, { centerSessionAgent: true });
           return;
         }
-        openNewAgentConversation(agent);
+        openNewAgentConversation(agent, { centerSessionAgent: true });
         return;
       }
       toggleAgentDrawer(agent, isPermissionCard);
@@ -10962,10 +11237,11 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
           : allHistories.slice(0, previewCount));
         const hiddenHistoryCount = Math.max(0, allHistories.length - previewCount);
         const isChildHistoryActive = allHistories.some(history => history.id === state.activeSessionId);
-        const isAgentOpen = state.page === "chat" && state.selected === agent.name && !isChildHistoryActive;
+        const isAgentOpen = isActiveChatAgent(agent) && !isChildHistoryActive;
         const isTaskAgent = isCopyrightTaskAgent(agent);
-        const buttonLabel = isCopyrightTaskAgent(agent) ? `打开${agent.name}创建表单` : `打开${agent.name}上一次会话`;
-        const newButtonLabel = isTaskAgent ? `新建${agent.name}任务` : `新建${agent.name}会话`;
+        const isPendingTraining = isPendingTrainingAgent(agent);
+        const buttonLabel = isPendingTraining ? `进入${agent.name}训练对话` : isCopyrightTaskAgent(agent) ? `打开${agent.name}创建表单` : `打开${agent.name}上一次会话`;
+        const newButtonLabel = isPendingTraining ? `训练${agent.name}` : isTaskAgent ? `新建${agent.name}任务` : `新建${agent.name}会话`;
         const historyToggleHtml = previewHistories.length
           ? `<span class="session-history-toggle ${isHistoryCollapsed ? "collapsed" : ""}" data-history-toggle="${escapeHtml(agent.name)}" title="${isHistoryCollapsed ? "展开会话历史" : "收起会话历史"}" aria-label="${isHistoryCollapsed ? `展开${escapeHtml(agent.name)}会话历史` : `收起${escapeHtml(agent.name)}会话历史`}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
@@ -10973,7 +11249,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
           : "";
         const historyHtml = !isHistoryCollapsed && previewHistories.length
           ? `<div class="session-history-list">${previewHistories.map(history => `
-              <div class="session-item ${state.page === "chat" && state.selected === agent.name && state.activeSessionId === history.id ? "active" : ""}" role="button" tabindex="0" data-session-id="${escapeHtml(history.id)}" title="${escapeHtml(history.title)}">
+              <div class="session-item ${isActiveChatAgent(agent) && state.activeSessionId === history.id ? "active" : ""}" role="button" tabindex="0" data-session-id="${escapeHtml(history.id)}" title="${escapeHtml(history.title)}">
                 <span class="session-item__body">
                   <span class="session-item__title">${escapeHtml(history.title)}</span>
                 </span>
@@ -11001,7 +11277,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
               </span>
             </button>
             <button class="session-agent-new-btn" type="button" aria-label="${newButtonLabel}" title="${newButtonLabel}">
-              ${actionButtonContent("新建", "plus")}
+              ${actionButtonContent(isPendingTraining ? "去训练" : "新建", isPendingTraining ? "chat" : "plus")}
             </button>
           </div>
           ${historyHtml}
@@ -11017,6 +11293,10 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         };
         mainBtn?.addEventListener("click", () => {
           if (isInlineTaskChatAgent(agent)) return;
+          if (isPendingTraining) {
+            openChat(agent, activeHistoryFor(agent));
+            return;
+          }
           if (previewHistories.length) {
             toggleSessionHistory();
             return;
@@ -11066,8 +11346,10 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
           }
           renderSessions();
         });
+        group.dataset.sessionAgentKey = publicAgentKey(agent);
         sessionList.appendChild(group);
       });
+      syncSessionHistoryBulkToggle();
     }
 
     function render() {
@@ -11112,6 +11394,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
         const viewState = activeAgentViewState();
         if (viewState.scope === button.dataset.agentScope) return;
         viewState.scope = button.dataset.agentScope;
+        viewState.category = "all";
         syncAgentScopeSubtitle();
         render();
         animateAgentContent();
@@ -11263,6 +11546,7 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
     agentDrawerCloseBtn.addEventListener("click", closeAgentDrawer);
     agentDetailLayer.addEventListener("click", closeAgentDrawer);
     agentDetailDrawer.addEventListener("click", event => event.stopPropagation());
+    sessionHistoryBulkToggle?.addEventListener("click", toggleAllSessionHistories);
     agentDrawerStartBtn.addEventListener("click", () => {
       const viewState = activeAgentViewState();
       const agent = agents.find(item => item.name === viewState.drawerAgent);
@@ -11282,13 +11566,17 @@ tag.txt 为标签；同级视频文件会进入 videos/。</pre>
       toggleUserMenu();
     });
     document.addEventListener("click", event => {
-      if (!event.target.closest(".nav-user")) closeUserMenu();
+      if (!event.target.closest(".nav-user") && !event.target.closest(".logo-lang-switch")) closeUserMenu();
     });
     langBtn.addEventListener("click", event => {
       event.stopPropagation();
+      navUserMenu.hidden = true;
+      navUserProfileBtn.classList.remove("active");
+      navUserProfileBtn.setAttribute("aria-expanded", "false");
       const willOpen = languageSubMenu.hidden;
       languageSubMenu.hidden = !willOpen;
       langBtn.setAttribute("aria-expanded", String(willOpen));
+      langBtn.classList.toggle("active", willOpen);
     });
     document.querySelectorAll("[data-lang]").forEach(button => {
       button.addEventListener("click", event => {
